@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+        latex:
+                build:
+                        context: $BUILD_CONTEXT
+                        dockerfile: $TEMPLATE_PATH/Dockerfile
+                        args:
+                                - NAME=$NAME
+                                - CONFIG=$CONFIG
+                                - PROJECT_PATH=$PROJECT_PATH
+                                - TEMPLATE_PATH=$TEMPLATE_PATH
+                volumes:
+                        - ${PWD}:/root/ans:Z
