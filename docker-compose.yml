@@ -14,4 +14,4 @@ services:
                 tty: true
                 stdin_open: true 
                 volumes:
-                        - ${PWD}:/root
+                        - ${STORAGE}:/root

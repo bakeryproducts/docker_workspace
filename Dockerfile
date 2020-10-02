@@ -10,6 +10,7 @@ RUN apt-get update --fix-missing && \
 	apt-get update && \
 	apt-get install -y --no-install-recommends \
 		vim \
-		git
+		git \
+		openssh-server
 WORKDIR /root
 #CMD bash

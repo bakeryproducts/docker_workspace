@@ -1,14 +1,11 @@
 CONFIG=config.env
 include ${CONFIG}
 
-all: build
+all: up attach
 
-build:
-	docker-compose -f ${COMPOSE_PATH} --env-file ${CONFIG} build
-run:
-	docker-compose run --name ${CONTAINER} ${IMAGE}
 up:
 	docker-compose -f ${COMPOSE_PATH} --env-file ${CONFIG} up --build --detach
+attach:
 	docker attach ${CONTAINER}
 stop:
 	docker-compose down
