@@ -1,13 +1,17 @@
 version: "3.8"
 services:
-        latex:
+        work_space:
                 build:
                         context: $BUILD_CONTEXT
-                        dockerfile: $TEMPLATE_PATH/Dockerfile
+                        dockerfile: $DOCKERFILE_PATH/Dockerfile
                         args:
                                 - NAME=$NAME
                                 - CONFIG=$CONFIG
-                                - PROJECT_PATH=$PROJECT_PATH
-                                - TEMPLATE_PATH=$TEMPLATE_PATH
+                                  #- PROJECT_PATH=$PROJECT_PATH
+                                  #- TEMPLATE_PATH=$TEMPLATE_PATH
+                image: $IMAGE
+                container_name: $CONTAINER
+                tty: true
+                stdin_open: true 
                 volumes:
-                        - ${PWD}:/root/ans:Z
+                        - ${PWD}:/root
