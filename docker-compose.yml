@@ -7,11 +7,14 @@ services:
                         args:
                                 - NAME=$NAME
                                 - CONFIG=$CONFIG
+                                - PUB=$PUB
                                   #- PROJECT_PATH=$PROJECT_PATH
                                   #- TEMPLATE_PATH=$TEMPLATE_PATH
                 image: $IMAGE
                 container_name: $CONTAINER
+                ports:
+                        - "${PORT}:22"
                 tty: true
                 stdin_open: true 
                 volumes:
-                        - ${STORAGE}:/root
+                        - ${STORAGE}:${SHARA_DOC}
