@@ -14,6 +14,7 @@ services:
                 container_name: $CONTAINER
                 ports:
                         - "${PORT}:22"
+                        - "${PORT_JUP}:${PORT_JUP}"  
                 tty: true
                 stdin_open: true 
                 volumes:

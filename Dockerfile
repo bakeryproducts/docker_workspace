@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-#ARG NAME
-#ARG CONFIG
+ARG NAME
+ARG CONFIG
 ARG PUB
 ENV PUB=$PUB
 #ARG PROJECT_PATH
@@ -25,8 +25,8 @@ RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid
 ENV NOTVISIBLE="in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
-EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+#EXPOSE 22
+#CMD ["/usr/sbin/sshd", "-D"]
 
 #WORKDIR /root
 #CMD cat /root/.ssh/authorized_keys
