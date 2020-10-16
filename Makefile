@@ -1,4 +1,4 @@
-CONFIG=config.env
+CONFIG=config/config.env
 include ${CONFIG}
 
 all: up attach

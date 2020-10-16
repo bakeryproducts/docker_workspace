@@ -6,10 +6,11 @@ services:
                         dockerfile: $DOCKERFILE_PATH/Dockerfile
                         args:
                                 - NAME=$NAME
-                                - CONFIG=$CONFIG
                                 - PUB=$PUB
-                                  #- PROJECT_PATH=$PROJECT_PATH
+                                - PORT_JUP=$PORT_JUP
+                                - PROJECT_PATH=$PROJECT_PATH
                                   #- TEMPLATE_PATH=$TEMPLATE_PATH
+                #env_file: config/config.env
                 image: $IMAGE
                 container_name: $CONTAINER
                 ports:
