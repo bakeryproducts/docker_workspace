@@ -6,11 +6,13 @@ services:
                         dockerfile: $DOCKERFILE_PATH/Dockerfile
                         args:
                                 - NAME=$NAME
+                                  #- CONFIG=$CONFIG
                                 - PUB=$PUB
+                                - HOST=$HOST
                                 - PORT_JUP=$PORT_JUP
                                 - PROJECT_PATH=$PROJECT_PATH
-                                  #- TEMPLATE_PATH=$TEMPLATE_PATH
-                #env_file: config/config.env
+                                - HOST_NAME=$USER
+                                - HOST_IP=$HOST_IP   #$(hostname -I | awk '{print $1;}')
                 image: $IMAGE
                 container_name: $CONTAINER
                 ports:

@@ -5,8 +5,13 @@ ARG CONFIG
 ARG PORT_JUP
 ENV PORT_JUP=$PORT_JUP
 ARG PUB
-ENV PUB=$PUB
+ARG HOST
 ARG PROJECT_PATH
+
+ARG HOST_NAME
+ARG HOST_IP
+ENV HOST_NAME=$HOST_NAME
+ENV HOST_IP=$HOST_IP
 
 RUN apt-get update --fix-missing && \
 	apt-get upgrade -y && \
@@ -17,7 +22,9 @@ RUN apt-get update --fix-missing && \
 		vim \
 		git \
 		openssh-server \
-		gettext-base
+		gettext-base \
+		iputils-ping \
+		net-tools
 RUN echo alias python='/usr/bin/python3' >> /root/.bashrc
 RUN pip3 install --upgrade pip
 
@@ -30,15 +37,16 @@ RUN rm requirements.txt
 COPY $PROJECT_PATH/config/config.env /root/config/config.env
 
 #jupyter lab
-#WORKDIR /root
 RUN jupyter lab --generate-config
 COPY $PROJECT_PATH/config/jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
 RUN envsubst < /root/.jupyter/jupyter_notebook_config.py > /root/.jupyter/jupyter_notebook_config.py
 
 #SSH
-#RUN mkdir /var/run/sshd
 RUN mkdir -m 600 /root/.ssh/
-ADD $PUB /root/.ssh/authorized_keys
+COPY $PUB /root/.ssh/authorized_keys
+COPY $HOST /root/.ssh/hostkey
+RUN echo alias hostrun='echo $HOST_NAME $HOST_IP' >> /root/.bashrc
+#RUN echo alias hostrun='ssh -i /root/.ssh/hostkey -l $HOST_NAME $HOST_IP ' >> /root/.bashrc
 
 RUN mkdir /var/run/sshd
 RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
@@ -47,7 +55,4 @@ ENV NOTVISIBLE="in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 EXPOSE 22
-#CMD ["/usr/sbin/sshd", "-D"]
-
-#WORKDIR /root
-#CMD cat /root/.ssh/authorized_keys
+#CMD jupyter lab & /usr/sbin/sshd -D 
