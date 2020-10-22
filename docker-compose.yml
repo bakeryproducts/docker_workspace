@@ -7,12 +7,17 @@ services:
                         args:
                                 - NAME=$NAME
                                   #- CONFIG=$CONFIG
+                                - SHARA=$SHARA
                                 - PUB=$PUB
                                 - HOST=$HOST
                                 - PORT_JUP=$PORT_JUP
                                 - PROJECT_PATH=$PROJECT_PATH
                                 - HOST_NAME=$USER
                                 - HOST_IP=$HOST_IP   #$(hostname -I | awk '{print $1;}')
+                environment:
+                        - PORT_JUP=$PORT_JUP
+                          #- HOST_NAME=$HOST_NAME
+                          #- HOST_IP=$HOST_IP
                 image: $IMAGE
                 container_name: $CONTAINER
                 ports:
@@ -21,4 +26,4 @@ services:
                 tty: true
                 stdin_open: true 
                 volumes:
-                        - ${STORAGE}:${SHARA_DOC}
+                        - ${SHARA}:${SHARA_DOC}
