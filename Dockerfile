@@ -61,4 +61,4 @@ ENV NOTVISIBLE="in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 EXPOSE 22
-#CMD jupyter lab & /usr/sbin/sshd -D 
+CMD jupyter lab & /usr/sbin/sshd -D 
