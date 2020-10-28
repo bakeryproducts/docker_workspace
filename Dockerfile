@@ -22,7 +22,14 @@ RUN apt-get update --fix-missing && \
 		gettext-base \
 		iputils-ping \
 		net-tools \
-		neovim
+		neovim \
+		build-essential \
+		make \
+		curl
+
+COPY ./config/.gitconfig /root/.gitconfig
+#RUN git config --global user.email GIT_EMAIL
+#RUN git config --global user.name GIT_NAME
 
 #install avesome vim
 #RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
@@ -51,8 +58,22 @@ COPY $PUB /root/.ssh/authorized_keys
 
 #make docker hook
 COPY $HOST /root/.ssh/hostkey
-RUN echo "#!/bin/bash\nssh -i /root/.ssh/hostkey -l $HOST_NAME $HOST_IP \"cd ${SHARA} && docker \$@\"" >> /bin/docker
-RUN chmod +x /bin/docker
+RUN echo "#!/bin/bash\nssh -i /root/.ssh/hostkey $HOST_NAME@$HOST_IP \"bash -c \$@\"" >> /bin/runhost
+RUN chmod +x /bin/runhost
+#RUN echo "#!/bin/bash\nssh -i /root/.ssh/hostkey $HOST_NAME@$HOST_IP \"cd ${SHARA} && $PATH_BIN/bin/docker \$@\"" >> /bin/docker
+#RUN chmod +x /bin/docker
+#RUN echo "#!/bin/bash\nssh -i /root/.ssh/hostkey $HOST_NAME@$HOST_IP \"cd ${SHARA} && $PATH_BIN/bin/docker-compose \$@\"" >> /bin/docker-compose
+#RUN chmod +x /bin/docker-compose
+
+#ARG DOCKER_CLI_VERSION="rootless-extras-19.03.9"
+ARG DOCKER_CLI_VERSION 
+ENV DOWNLOAD_URL="https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_CLI_VERSION.tgz"
+# install docker client
+RUN mkdir -p /tmp/download \
+    	&& curl -L $DOWNLOAD_URL | tar -xz -C /tmp/download \
+	&& mv /tmp/download/docker/docker /usr/bin/ \
+    	&& rm -rf /tmp/download \
+    	&& rm -rf /var/cache/apk/*
 
 #SSH-server
 RUN mkdir /var/run/sshd
