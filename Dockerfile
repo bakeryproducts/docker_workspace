@@ -75,6 +75,11 @@ RUN mkdir -p /tmp/download \
     	&& rm -rf /tmp/download \
     	&& rm -rf /var/cache/apk/*
 
+ARG DOCKER_COMPOSE_CLI_VERSION
+#ENV DOWNLOAD_URL="https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_CLI_VERSION/docker-compose-$(uname -s)-$(uname -m)"
+RUN curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_CLI_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
+RUN chmod +x /usr/bin/docker-compose
+
 #SSH-server
 RUN mkdir /var/run/sshd
 RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
