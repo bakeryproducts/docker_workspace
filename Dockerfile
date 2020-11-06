@@ -1,12 +1,10 @@
 FROM ubuntu:20.04
 
 ARG NAME
-ARG CONFIG
-ARG PORT_JUP
 ARG PUB
 ARG HOST
+ARG PORT_JUP
 ARG PROJECT_PATH
-ARG SHARA
 ARG HOST_NAME
 ARG HOST_IP
 
@@ -28,8 +26,6 @@ RUN apt-get update --fix-missing && \
 		curl
 
 COPY ./config/.gitconfig /root/.gitconfig
-#RUN git config --global user.email GIT_EMAIL
-#RUN git config --global user.name GIT_NAME
 
 #install avesome vim
 #RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
@@ -60,23 +56,17 @@ COPY $PUB /root/.ssh/authorized_keys
 COPY $HOST /root/.ssh/hostkey
 RUN echo "#!/bin/bash\nssh -i /root/.ssh/hostkey $HOST_NAME@$HOST_IP \"bash -c \$@\"" >> /bin/runhost
 RUN chmod +x /bin/runhost
-#RUN echo "#!/bin/bash\nssh -i /root/.ssh/hostkey $HOST_NAME@$HOST_IP \"cd ${SHARA} && $PATH_BIN/bin/docker \$@\"" >> /bin/docker
-#RUN chmod +x /bin/docker
-#RUN echo "#!/bin/bash\nssh -i /root/.ssh/hostkey $HOST_NAME@$HOST_IP \"cd ${SHARA} && $PATH_BIN/bin/docker-compose \$@\"" >> /bin/docker-compose
-#RUN chmod +x /bin/docker-compose
 
+# install docker client
 #ARG DOCKER_CLI_VERSION="rootless-extras-19.03.9"
 ARG DOCKER_CLI_VERSION 
-ENV DOWNLOAD_URL="https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_CLI_VERSION.tgz"
-# install docker client
 RUN mkdir -p /tmp/download \
-    	&& curl -L $DOWNLOAD_URL | tar -xz -C /tmp/download \
+    	&& curl -L "https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_CLI_VERSION.tgz" | tar -xz -C /tmp/download \
 	&& mv /tmp/download/docker/docker /usr/bin/ \
     	&& rm -rf /tmp/download \
     	&& rm -rf /var/cache/apk/*
 
 ARG DOCKER_COMPOSE_CLI_VERSION
-#ENV DOWNLOAD_URL="https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_CLI_VERSION/docker-compose-$(uname -s)-$(uname -m)"
 RUN curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_CLI_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
 RUN chmod +x /usr/bin/docker-compose
 
@@ -85,6 +75,22 @@ RUN mkdir /var/run/sshd
 RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd
 ENV NOTVISIBLE="in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
+
+#make utils
+COPY ./utils/switch_mount.py /usr/local/bin/switch_mount.py
+RUN chmod +x /usr/local/bin/switch_mount.py
+
+COPY ./utils/subdocker /usr/local/bin/docker                                                 
+RUN chmod +x /usr/local/bin/docker
+
+COPY ./utils/subdockercom /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+
+#RUN echo "#!/bin/bash\n/usr/bin/docker \$@" >> /usr/local/sbin/docker
+#RUN chmod +x /usr/local/sbin/docker
+
+#RUN echo "#!/bin/bash\n/usr/bin/docker-compose \$@" >> /usr/local/sbin/docker-compose
+#RUN chmod +x /usr/local/sbin/docker-compose
 
 EXPOSE 22
 CMD jupyter lab & /usr/sbin/sshd -D 

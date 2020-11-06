@@ -1,0 +1,16 @@
+#!/bin/python3
+import os
+import sys
+import subprocess
+from switch_mount import substitution_file as sf
+
+if __name__ == '__main__':
+    try:
+        idx = sys.argv.index('-f') + 1
+        tmp_path = sys.argv[idx] + '.tmp'
+        sf(sys.argv[idx], new_path=tmp_path)
+        sys.argv[idx] = tmp_path
+    sys.argv[0] = '/usr/bin/docker'
+    process = subprocess.Popen(sys.argv, stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    os.remove(tmp_path)

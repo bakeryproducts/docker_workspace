@@ -6,21 +6,16 @@ services:
                         dockerfile: $DOCKERFILE_PATH/Dockerfile
                         args:
                                 - NAME=$NAME
-                                  #- CONFIG=$CONFIG
-                                - SHARA=$SHARA
                                 - PUB=$PUB
                                 - HOST=$HOST
                                 - PORT_JUP=$PORT_JUP
                                 - PROJECT_PATH=$PROJECT_PATH
                                 - HOST_NAME=$USER
                                 - HOST_IP=$HOST_IP
-                                  #- GIT_EMAIL=$GIT_EMAIL
                                 - DOCKER_CLI_VERSION=$DOCKER_CLI_VERSION
                                 - DOCKER_COMPOSE_CLI_VERSION=$DOCKER_COMPOSE_CLI_VERSION
                 environment:
                         - PORT_JUP=$PORT_JUP
-                          #- HOST_NAME=$HOST_NAME
-                          #- HOST_IP=$HOST_IP
                 image: $IMAGE
                 container_name: $CONTAINER
                 ports:
