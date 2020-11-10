@@ -10,6 +10,4 @@ if __name__ == '__main__':
     sf(sys.argv[idx], new_path=tmp_path)
     sys.argv[0] = '/usr/bin/docker-compose'
     sys.argv[idx] = tmp_path
-    process = subprocess.Popen(sys.argv, stdout=subprocess.PIPE)
-    output, error = process.communicate()
-    os.remove(tmp_path)
+    os.system(' '.join(sys.argv))
