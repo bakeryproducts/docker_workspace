@@ -9,21 +9,22 @@ ARG HOST_NAME
 ARG HOST_IP
 
 RUN apt-get update --fix-missing && \
-	apt-get upgrade -y && \
-	apt-get update && \
-	apt-get install -y --no-install-recommends \
-		python3-pip \
-		python3-dev \
-		vim \
-		git \
-		openssh-server \
-		gettext-base \
-		iputils-ping \
-		net-tools \
-		neovim \
-		build-essential \
-		make \
-		curl
+    apt-get upgrade -y && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3-pip \
+	    python3-dev \
+        vim \
+        git \
+        openssh-server \
+        gettext-base \
+        iputils-ping \
+        net-tools \
+        neovim \
+        build-essential \
+        make \
+        curl \
+        sudo
 
 COPY ./config/.gitconfig /root/.gitconfig
 
@@ -91,6 +92,8 @@ RUN chmod +x /usr/local/bin/docker-compose
 
 #RUN echo "#!/bin/bash\n/usr/bin/docker-compose \$@" >> /usr/local/sbin/docker-compose
 #RUN chmod +x /usr/local/sbin/docker-compose
+
+#RUN useradd -ms /bin/bash lol
 
 EXPOSE 22
 CMD jupyter lab & /usr/sbin/sshd -D 

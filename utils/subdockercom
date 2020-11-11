@@ -11,3 +11,4 @@ if __name__ == '__main__':
     sys.argv[0] = '/usr/bin/docker-compose'
     sys.argv[idx] = tmp_path
     os.system(' '.join(sys.argv))
+    os.remove(tmp_path)
