@@ -20,13 +20,15 @@ RUN apt-get update --fix-missing && \
         gettext-base \
         iputils-ping \
         net-tools \
-        neovim \
+        #neovim \
+        vim \
         build-essential \
         make \
         curl \
         sudo
 
 COPY ./config/.gitconfig /root/.gitconfig
+COPY ./config/.vimrc /root/.vimrc
 
 #install avesome vim
 #RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
