@@ -24,7 +24,7 @@ def substitution_file(path, config='~/config/config.env', new_path=None):
     doc_file = open(os.path.expanduser(path)).read()
     env_vars, doc_vars = make_vars(config)
     for doc_path in doc_vars:
-        doc_file = doc_file.replace(doc_vars[doc_path], env_vars[doc_path.replace('_DOC', '')])
+        doc_file = doc_file.replace('- '+doc_vars[doc_path], '- '+env_vars[doc_path.replace('_DOC', '')])
     if new_path is None: new_path=os.path.expanduser(path) + '.tmp'
     with open(new_path, 'w') as writer: writer.write(doc_file)
     return new_path
