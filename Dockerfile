@@ -21,7 +21,6 @@ RUN apt-get update --fix-missing && \
         iputils-ping \
         net-tools \
         #neovim \
-        vim \
         build-essential \
         make \
         curl \
