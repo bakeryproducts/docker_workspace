@@ -1,10 +1,15 @@
-LOCAL_PUB_KEY=$HOME/.ssh/id_rsa.pub
-cp $LOCAL_PUB_KEY ./keys/id.pub
+for filename in $HOME/.ssh/*.pub; do
+    cp "$filename" $PWD/resources/keys
+done
+
+USERNAME="gsm"
+RESOURCES_PATH="/resources"
+WORKSPACE_HOME="/home/$USERNAME"
 
 docker build -f ./Dockerfile \
              -t sokolov/ws:v01 \
-            --build-arg USER_HOME_PATH=/home/gsm \
-            --build-arg USERNAME=gsm \
+            --build-arg USERNAME=$USERNAME \
+            --build-arg RESOURCES_PATH=$RESOURCES_PATH \
             . &&
             #--no-cache . &&
 
@@ -12,9 +17,10 @@ docker run --rm \
             --gpus all \
             --name sokolov_ws \
             -it \
-            -p 9889:22 \
+            -p 9022:22 \
             -p 10023:10023 \
+            -v $PWD/workspace/$USERNAME:$WORKSPACE_HOME \
+            -v $PWD/resources:$RESOURCES_PATH \
             --net sokolov_ws_net \
             --ip 172.29.0.232 \
-            sokolov/ws:v01 \
-            bash
+            sokolov/ws:v01 
