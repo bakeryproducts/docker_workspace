@@ -1,15 +1,20 @@
-FROM ubuntu:18.04
+#FROM ubuntu:18.04
 #FROM debian:buster
+#FROM nvcr.io/nvidia/pytorch:20.11-py3
+FROM nvcr.io/nvidia/cuda:11.1-devel-ubuntu18.04
+
+ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && \
     apt-get install -y \
-        python3-pip \ 
         python3 \
-        vim \
+        python3-pip \
+        vim-gtk \
         ssh \
-        curl \
-        openssh-server \
-        sudo
+        sudo \
+        curl 
+        #openssh-server \
         
 ARG USERNAME
 ARG RESOURCES_PATH 
@@ -18,20 +23,10 @@ ENV RESOURCES_PATH $RESOURCES_PATH
 ENV WORKSPACE_HOME "/home/$USERNAME"
 ENV USERNAME $USERNAME
 
-##########################################
-RUN pip3 install ranger-fm
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y locales
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-    dpkg-reconfigure --frontend=noninteractive locales && \
-    update-locale LANG=en_US.UTF-8
-ENV LANG=en_US.UTF-8 
-##########################################
-
-
 RUN useradd -rm -s /bin/bash -G sudo -u 1000 $USERNAME 
 RUN  echo "$USERNAME:$USERNAME" | chpasswd
 
+ENTRYPOINT ["python3", "/resources/entrypoint.py"] 
 
 EXPOSE 22
-#CMD ["/bin/bash"]
-CMD ["python3", "/resources/docker-entrypoint.py"] 
+#CMD ["&&","/bin/bash"]

@@ -1,4 +1,5 @@
 jupyterlab
 ranger-fm
+fire
 #docker
 #dockerpty

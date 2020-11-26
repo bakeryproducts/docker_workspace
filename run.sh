@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e 
 for filename in $HOME/.ssh/*.pub; do
     cp "$filename" $PWD/resources/keys
 done
@@ -7,16 +9,21 @@ RESOURCES_PATH="/resources"
 WORKSPACE_HOME="/home/$USERNAME"
 
 docker build -f ./Dockerfile \
-             -t sokolov/ws:v01 \
+             -t sokolov/wsbase:v01 \
             --build-arg USERNAME=$USERNAME \
             --build-arg RESOURCES_PATH=$RESOURCES_PATH \
-            . &&
+            . 
             #--no-cache . &&
 
-docker run --rm \
+docker build -f ./Dockerfile.ws \
+             -t sokolov/ws:v01 \
+             .
+           #--no-cache . &&
+
+docker run  \
             --gpus all \
             --name sokolov_ws \
-            -it \
+            -di \
             -p 9022:22 \
             -p 10023:10023 \
             -v $PWD/workspace/$USERNAME:$WORKSPACE_HOME \

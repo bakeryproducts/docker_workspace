@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 """
-Configure and run tools
+Main Workspace Run Script
 """
 
 from subprocess import call
 import os
+import math
 import sys
-from pathlib import Path
+from urllib.parse import quote
 
 
 # Enable logging
@@ -17,22 +18,25 @@ logging.basicConfig(
     stream=sys.stdout)
 
 log = logging.getLogger(__name__)
-
-log.info("Start Workspace")
-
-ENV_RESOURCES_PATH = Path(os.getenv("RESOURCES_PATH", "/resources"))
-WORKSPACE_HOME = Path(os.getenv('WORKSPACE_HOME', "/workspace"))
+log.info("Starting workspace")
 
 
-log.info("Configure ssh service")
-call("/bin/bash " + str(ENV_RESOURCES_PATH / "scripts/configure_ssh.sh"), shell=True)
+ENV_RESOURCES_PATH = os.getenv("RESOURCES_PATH", "/resources")
+ENV_WORKSPACE_HOME = os.getenv('WORKSPACE_HOME', "/workspace")
+ENV_USERNAME = os.getenv('USERNAME', 'root')
 
-#log.info("Configure tools")
-#call("python3 " + ENV_RESOURCES_PATH / "scripts/configure_tools.py", shell=True)
 
-startup_custom_script = str(ENV_RESOURCES_PATH / "scripts/internal_run.sh")
-if os.path.exists(startup_custom_script):
-    log.info("Run internal_run.sh user script from workspace folder")
-    call("/bin/bash " + startup_custom_script, shell=True)
+log.info("Setting bakery")
+call(f'su {ENV_USERNAME} --command "{ENV_RESOURCES_PATH}/scripts/install_bakery.sh"', shell=True)
+
 
 call('/bin/bash', shell=True)
+# pass all script arguments to next script
+#script_arguments = " " + ' '.join(sys.argv[1:])
+#
+#EXECUTE_CODE = os.getenv('EXECUTE_CODE', None)
+#if EXECUTE_CODE:
+#    # use workspace as working directory
+#    sys.exit(call("cd " + ENV_WORKSPACE_HOME + " && python3 " + ENV_RESOURCES_PATH + "/scripts/execute_code.py" + script_arguments, shell=True))
+#
+#sys.exit(call("python3 " + ENV_RESOURCES_PATH + "/scripts/init_workspace.py" + script_arguments, shell=True))
