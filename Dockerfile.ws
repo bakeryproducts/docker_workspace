@@ -18,4 +18,4 @@ RUN apt-get update --fix-missing && \
 RUN echo 'ZDOTDIR=~/.config/zsh' >> /etc/zsh/zshenv
 COPY resources/config/requirements.txt /tmp
 
-CMD ["python3", "$RESOURCES_PATH/scripts/run_workspace.py"] 
+CMD "python3 $RESOURCES_PATH/scripts/run_workspace.py"

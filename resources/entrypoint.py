@@ -36,4 +36,4 @@ log.info("Configure ssh service")
 call('service ssh start', shell=True)
 call("/bin/bash " + str(f"{ENV_RESOURCES_PATH}/scripts/configure_ssh.sh"), shell=True)
 
-if len(sys.argv) > 1: call(' '.join(sys.argv[1:]), shell=True)
+if len(sys.argv) > 1:  call(' '.join(sys.argv[1:]), shell=True)

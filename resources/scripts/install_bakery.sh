@@ -36,6 +36,9 @@ ln -s $GIT_FOLDER/dotfiles/.configs/xs xs
 cd $GIT_FOLDER/dotfiles/.configs/zsh/
 ./completer
 
+vim +PlugInstall +qall  > /dev/null
+
+
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
 
