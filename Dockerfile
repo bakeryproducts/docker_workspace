@@ -26,7 +26,8 @@ ENV USERNAME $USERNAME
 RUN useradd -rm -s /bin/bash -G sudo -u 1000 $USERNAME 
 RUN  echo "$USERNAME:$USERNAME" | chpasswd
 
-ENTRYPOINT ["python3", "/resources/entrypoint.py"] 
+
+ENTRYPOINT ["python3", "$RESOURCES_PATH/entrypoint.py"] 
 
 EXPOSE 22
 #CMD ["&&","/bin/bash"]

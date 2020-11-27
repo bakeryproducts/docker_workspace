@@ -19,11 +19,9 @@ pip3 install -e .
 cd $WORKSPACE_HOME/dists  
 git clone https://github.com/bakeryproducts/dotfiles
 cd dotfiles 
-# no installer yet!
 
 
 GIT_FOLDER=$WORKSPACE_HOME/dists
-
 
 cd ~
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -37,3 +35,16 @@ ln -s $GIT_FOLDER/dotfiles/.configs/xs xs
 
 cd $GIT_FOLDER/dotfiles/.configs/zsh/
 ./completer
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --all
+
+cd $GIT_FOLDER/
+git clone https://github.com/clvv/fasd
+cd fasd
+PREFIX=$HOME/.local make install
+
+pip3 install -r /tmp/requirements.txt
+
+
+echo "bakery is installed"

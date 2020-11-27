@@ -15,12 +15,7 @@ RUN apt-get update --fix-missing && \
         #net-tools \
         #build-essential \
         
-USER $USERNAME
-RUN pip3 install jupyterlab \ 
-                    ranger-fm
+RUN echo 'ZDOTDIR=~/.config/zsh' >> /etc/zsh/zshenv
 COPY resources/config/requirements.txt /tmp
-RUN pip3 install -r /tmp/requirements.txt
 
-USER root
-CMD ["python3", "/resources/scripts/run_workspace.py"] 
-#CMD ["/bin/bash"]
+CMD ["python3", "$RESOURCES_PATH/scripts/run_workspace.py"] 

@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e 
+
+#docker network create --subnet=172.29.0.0/16 sokolov_ws_net
 for filename in $HOME/.ssh/*.pub; do
     cp "$filename" $PWD/resources/keys
 done
@@ -24,6 +26,7 @@ docker run  \
             --gpus all \
             --name sokolov_ws \
             -di \
+            -h sws \
             -p 9022:22 \
             -p 10023:10023 \
             -v $PWD/workspace/$USERNAME:$WORKSPACE_HOME \

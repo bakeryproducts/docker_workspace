@@ -25,11 +25,6 @@ ENV_WORKSPACE_HOME = os.getenv('WORKSPACE_HOME', "/workspace")
 ENV_USERNAME = os.getenv('USERNAME', 'root')
 
 log.info("Setting permissions")
-#call(f'cp /root/.bashrc {ENV_WORKSPACE_HOME}', shell=True)
-#call(f'cp /root/.profile {ENV_WORKSPACE_HOME}', shell=True)
-#call(f'echo "export PATH=/opt/conda/bin:\$PATH"  >> {ENV_WORKSPACE_HOME}/.profile', shell=True)
-
-#call(f'cp -r /root/.conda {ENV_WORKSPACE_HOME}', shell=True)
 call(f'usermod -d /home/{ENV_USERNAME} {ENV_USERNAME}', shell=True)
 call(f'usermod --shell /usr/bin/zsh {ENV_USERNAME}', shell=True)
 call(f'mkdir {ENV_WORKSPACE_HOME}/.local', shell=True)

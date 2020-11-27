@@ -26,10 +26,11 @@ ENV_WORKSPACE_HOME = os.getenv('WORKSPACE_HOME', "/workspace")
 ENV_USERNAME = os.getenv('USERNAME', 'root')
 
 
-log.info("Setting bakery")
+log.info("Setting up bakery")
 call(f'su {ENV_USERNAME} --command "{ENV_RESOURCES_PATH}/scripts/install_bakery.sh"', shell=True)
 
 
+log.info("Workspace started.")
 call('/bin/bash', shell=True)
 # pass all script arguments to next script
 #script_arguments = " " + ' '.join(sys.argv[1:])
