@@ -10,6 +10,7 @@ RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
         git \
         zsh \
+        htop \
         gettext-base
         #iputils-ping \
         #net-tools \
