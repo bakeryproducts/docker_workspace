@@ -27,8 +27,7 @@ docker run  \
             --name sokolov_ws \
             -di \
             -h sws \
-            -p 9022:22 \
-            -p 10023:10023 \
+            -p 9000-10000:9000-10000 \
             -v $PWD/workspace/$USERNAME:$WORKSPACE_HOME \
             -v $PWD/resources:$RESOURCES_PATH \
             --net sokolov_ws_net \
