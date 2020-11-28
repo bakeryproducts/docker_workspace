@@ -2,6 +2,7 @@
 set -e 
 
 #docker network create --subnet=172.29.0.0/16 sokolov_ws_net
+mkdir -p $PWD/resources/keys
 for filename in $HOME/.ssh/*.pub; do
     cp "$filename" $PWD/resources/keys
 done
