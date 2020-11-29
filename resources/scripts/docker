@@ -32,10 +32,5 @@ if __name__ == '__main__':
                 print(f'{path_workspace} is not a valid path!')
                 if '/' not in str(path_workspace): raise Exception
     print(args)
-    sys.exit()
-    if '-v' in sys.argv:
-        os.system(ss(' '.join(sys.argv)))
-    else:
-        os.system(' '.join(sys.argv))
-    if tmp_path:
-        os.remove(tmp_path)
+    #sys.exit()
+    os.system(' '.join(args))
