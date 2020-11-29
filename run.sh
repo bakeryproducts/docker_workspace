@@ -11,6 +11,7 @@ USERNAME="gsm"
 RESOURCES_PATH="/resources"
 WORKSPACE_HOME="/home/$USERNAME"
 WORKSPACE_HOST_PATH="$PWD/workspace/"
+ID=$(id -g $USER)
 
 docker build -f ./Dockerfile \
              -t sokolov/wsbase:v01 \
@@ -34,6 +35,7 @@ docker run  \
             -p 9001-9100:9001-9100 \
             -v $WORKSPACE_HOST_PATH/$USERNAME:$WORKSPACE_HOME \
             -v $PWD/resources:$RESOURCES_PATH \
+	    -v /run/user/$ID/docker.sock:/var/run/docker.sock \
             --net sokolov_ws_net \
             --ip 172.29.0.232 \
             sokolov/ws:v01 
