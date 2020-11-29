@@ -1,20 +1,38 @@
 #!/bin/python3
 import os
 import sys
-import subprocess
-from switch_mount import substitution_file as sf
-from switch_mount import sudstitution_str as ss
+from pathlib import Path
+
+def complete_path(path):
+    host_prefix = os.getenv('WORKSPACE_HOST_PATH', '')
+    ws_mnt = Path(os.getenv('WORKSPACE_HOME', '/workspace'))
+    fake_part_of_path = ws_mnt.parents[0]
+    host_relative_path = path.relative_to(fake_part_of_path)
+    print(host_relative_path)
+    return str (host_prefix / host_relative_path)  
+
+def is_valid_folder(path): 
+    ws_mnt = Path(os.getenv('WORKSPACE_HOME', '/workspace'))
+    return path.exists() and ws_mnt in path.parents
+
 
 if __name__ == '__main__':
-    tmp_path = None
-    try:
-        idx = sys.argv.index('-f') + 1
-        tmp_path = sys.argv[idx] + '.tmp'
-        sf(sys.argv[idx], new_path=tmp_path)
-        sys.argv[idx] = tmp_path
-    except:
-        pass
-    sys.argv[0] = '/usr/bin/docker'
+    mount_flag = '-v'
+    args = sys.argv
+    args[0] = '/usr/bin/docker'
+
+    for i, arg in enumerate(args):
+        if arg == mount_flag:
+           path_workspace, path_docker = args[i+1].split(':')
+           path_workspace = Path(path_workspace)
+           if is_valid_folder(path_workspace):
+               path_host = complete_path(path_workspace)
+               args[i+1] = ':'.join([path_host, path_docker])
+           else:
+                print(f'{path_workspace} is not a valid path!')
+                if '/' not in str(path_workspace): raise Exception
+    print(args)
+    sys.exit()
     if '-v' in sys.argv:
         os.system(ss(' '.join(sys.argv)))
     else:
