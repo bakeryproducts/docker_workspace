@@ -10,6 +10,7 @@ done
 USERNAME="gsm"
 RESOURCES_PATH="/resources"
 WORKSPACE_HOME="/home/$USERNAME"
+WORKSPACE_HOST_PATH="$PWD/workspace/$USERNAME"
 
 docker build -f ./Dockerfile \
              -t sokolov/wsbase:v01 \
@@ -20,6 +21,7 @@ docker build -f ./Dockerfile \
 
 docker build -f ./Dockerfile.ws \
              -t sokolov/ws:v01 \
+            --build-arg WORKSPACE_HOST_PATH=$WORKSPACE_HOST_PATH\
              .
            #--no-cache . &&
 
@@ -30,7 +32,7 @@ docker run  \
             -h sws \
             -p 9000:22 \
             -p 9001-9100:9001-9100 \
-            -v $PWD/workspace/$USERNAME:$WORKSPACE_HOME \
+            -v $WORKSPACE_HOST_PATH:$WORKSPACE_HOME \
             -v $PWD/resources:$RESOURCES_PATH \
             --net sokolov_ws_net \
             --ip 172.29.0.232 \
