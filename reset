@@ -1,0 +1,4 @@
+#!/bin/bash
+./fuck
+docker rm sokolov_ws -f
+rm -rf ./workspace/gsm
