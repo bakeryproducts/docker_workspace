@@ -25,6 +25,9 @@ ENV_WORKSPACE_HOME = os.getenv('WORKSPACE_HOME', "/workspace")
 ENV_USERNAME = os.getenv('USERNAME', 'root')
 
 log.info("Setting permissions")
+call(f'env | grep _ >> /etc/environment', shell=True)
+
+log.info("Setting permissions")
 call(f'usermod -d /home/{ENV_USERNAME} {ENV_USERNAME}', shell=True)
 call(f'usermod --shell /usr/bin/zsh {ENV_USERNAME}', shell=True)
 call(f'mkdir {ENV_WORKSPACE_HOME}/.local', shell=True)
