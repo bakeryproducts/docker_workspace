@@ -14,7 +14,6 @@ RUN apt-get update && \
         ssh \
         sudo \
         curl 
-        #openssh-server \
         
 ARG USERNAME
 ARG RESOURCES_PATH 
@@ -29,4 +28,3 @@ RUN  echo "$USERNAME:$USERNAME" | chpasswd
 ENTRYPOINT python3 $RESOURCES_PATH/entrypoint.py $0 $@
 
 EXPOSE 22
-#CMD ["&&","/bin/bash"]

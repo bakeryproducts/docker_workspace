@@ -20,9 +20,6 @@ RUN apt-get update --fix-missing && \
         #net-tools \
         #build-essential \
         
-RUN service enable docker && \
-    service start docker
-        
 RUN echo 'ZDOTDIR=~/.config/zsh' >> /etc/zsh/zshenv
 COPY resources/config/requirements.txt /tmp
 

@@ -14,14 +14,14 @@ WORKSPACE_HOST_PATH="$PWD/workspace/"
 ID=$(id -g $USER)
 
 docker build -f ./Dockerfile \
-             -t sokolov/wsbase:v01 \
+             -t sokolov/wsbase:v02 \
             --build-arg USERNAME=$USERNAME \
             --build-arg RESOURCES_PATH=$RESOURCES_PATH \
             . 
             #--no-cache . &&
 
 docker build -f ./Dockerfile.ws \
-             -t sokolov/ws:v01 \
+             -t sokolov/ws:v02 \
             --build-arg WORKSPACE_HOST_PATH=$WORKSPACE_HOST_PATH\
              .
            #--no-cache . &&
