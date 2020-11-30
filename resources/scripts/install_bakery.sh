@@ -46,4 +46,6 @@ cd fasd && PREFIX=$HOME/.local make install
 
 pip3 install -r /tmp/requirements.txt
 
+
+rm ~/.bashrc ~/.zshrc ~/.fzf.zsh ~/.fzf.bash
 echo "bakery is installed"
