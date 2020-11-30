@@ -16,11 +16,17 @@ RUN apt-get update --fix-missing && \
         gettext-base \
         docker.io \
         htop \
-        screen
+        screen 
         #iputils-ping \
         #net-tools \
         #build-essential \
         
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - &&  apt-get install -y nodejs
+
+RUN cd /tmp && wget http://eradman.com/entrproject/code/entr-4.6.tar.gz && \
+    cd entr-4.6 && ./configure && make test && make install
+
+
 RUN echo 'ZDOTDIR=~/.config/zsh' >> /etc/zsh/zshenv
 COPY resources/config/requirements.txt /tmp
 
