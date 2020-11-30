@@ -1,2 +1,2 @@
  #!/bin/bash
- docker run --rm -v $PWD/workspace:/ws ubuntu chown -R root:root /ws
+ docker run --rm -v $PWD/workspace:/ws busybox chown -R root:root /ws

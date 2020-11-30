@@ -6,12 +6,16 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     update-locale LANG=en_US.UTF-8
 ENV LANG=en_US.UTF-8 
 
+ARG WORKSPACE_HOST_PATH 
+ENV WORKSPACE_HOST_PATH $WORKSPACE_HOST_PATH  
+
 RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
         git \
         zsh \
         gettext-base \
-        docker.io
+        docker.io \
+        htop 
         #iputils-ping \
         #net-tools \
         #build-essential \
