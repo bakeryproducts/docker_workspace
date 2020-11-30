@@ -43,12 +43,12 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 cd $GIT_FOLDER/ && git clone https://github.com/clvv/fasd
 cd fasd && PREFIX=$HOME/.local make install
 
-
+cd $GIT_FOLDER/.configs/ml && ./jupyterlab_extensions_setup
+screen -d -m jupyter-lab --port 9088 --no-browser --NotebookApp.token='' --NotebookApp.password=''
 pip3 install -r /tmp/requirements.txt
 
 
 rm ~/.bashrc ~/.zshrc ~/.fzf.zsh ~/.fzf.bash
-screen -d -m jupyter-lab --port 9088 --no-browser --NotebookApp.token='' --NotebookApp.password=''
 
 echo "bakery is installed"
 
