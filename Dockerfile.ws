@@ -15,7 +15,8 @@ RUN apt-get update --fix-missing && \
         zsh \
         gettext-base \
         docker.io \
-        htop 
+        htop \
+        screen
         #iputils-ping \
         #net-tools \
         #build-essential \
