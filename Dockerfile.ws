@@ -24,7 +24,7 @@ RUN apt-get update --fix-missing && \
 RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - &&  apt-get install -y nodejs
 
 RUN cd /tmp && wget http://eradman.com/entrproject/code/entr-4.6.tar.gz && \
-    cd entr-4.6 && ./configure && make test && make install
+    tar -zxf entr-4.6.tar.gz && cd entr-4.6 && ./configure && make test && make install
 
 
 RUN echo 'ZDOTDIR=~/.config/zsh' >> /etc/zsh/zshenv
