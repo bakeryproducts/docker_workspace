@@ -1,17 +1,22 @@
 #!/bin/bash
-set -e 
 
 #docker network create --subnet=172.29.0.0/16 sokolov_ws_net
-mkdir -p $PWD/resources/keys
-for filename in $HOME/.ssh/*.pub; do
-    cp "$filename" $PWD/resources/keys
-done
+set -e 
 
 USERNAME="gsm"
 RESOURCES_PATH="/resources"
 WORKSPACE_HOME="/home/$USERNAME"
 WORKSPACE_HOST_PATH="$PWD/workspace/"
-ID=$(id -g $USER)
+DOCKER_SOCK_PATH=$XDG_RUNTIME_PATH/docker.sock
+#DOCKER_PORT_RANGE=[]
+#DOCKER_NETWORK=sokolov_ws_net
+#DOCKER_IP=172.29.0.232
+
+
+mkdir -p $PWD/resources/keys
+for filename in $HOME/.ssh/*.pub; do
+    cp "$filename" $PWD/resources/keys
+done
 
 docker build -f ./Dockerfile \
              -t sokolov/wsbase:v02 \
@@ -35,7 +40,7 @@ docker run  \
             -p 9001-9100:9001-9100 \
             -v $WORKSPACE_HOST_PATH/$USERNAME:$WORKSPACE_HOME \
             -v $PWD/resources:$RESOURCES_PATH \
-	    -v /run/user/$ID/docker.sock:/var/run/docker.sock \
+    	    -v $DOCKER_SOCK_PATH:/var/run/docker.sock \
             --net sokolov_ws_net \
             --ip 172.29.0.232 \
             sokolov/ws:v01 
