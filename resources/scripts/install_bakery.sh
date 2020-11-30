@@ -32,7 +32,7 @@ ln -s $GIT_FOLDER/dotfiles/.configs/vim vim
 ln -s $GIT_FOLDER/dotfiles/.configs/xs xs
 
 pip3 install nbstripout
-nbstripout --install --global
+/home/$USER/.local/bin/nbstripout --install --global
 
 cd $GIT_FOLDER/dotfiles/.configs/zsh/ && ./completer
 
