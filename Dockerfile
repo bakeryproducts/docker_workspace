@@ -14,6 +14,8 @@ RUN apt-get update && \
         ssh \
         sudo \
         curl 
+
+RUN pip3 install --upgrade pip
         
 ARG USERNAME
 ARG RESOURCES_PATH 
