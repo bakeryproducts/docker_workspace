@@ -7,6 +7,7 @@ USERNAME="gsm"
 RESOURCES_PATH="/resources"
 WORKSPACE_HOME="/home/$USERNAME"
 WORKSPACE_HOST_PATH="$PWD/workspace/"
+DATASETS_HOST_PATH="/data/datasets/"
 DOCKER_SOCK_PATH=$XDG_RUNTIME_DIR/docker.sock
 #DOCKER_PORT_RANGE=[]
 #DOCKER_NETWORK=sokolov_ws_net
@@ -40,7 +41,8 @@ docker run  \
             -p 9001-9100:9001-9100 \
             -v $WORKSPACE_HOST_PATH/$USERNAME:$WORKSPACE_HOME \
             -v $PWD/resources:$RESOURCES_PATH \
+            -v $DATASETS_HOST_PATH:/datasets\
     	    -v $DOCKER_SOCK_PATH:/var/run/docker.sock \
             --net sokolov_ws_net \
             --ip 172.29.0.232 \
-            sokolov/ws:v01 
+            sokolov/ws:v02 
