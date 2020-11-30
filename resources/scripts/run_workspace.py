@@ -23,7 +23,7 @@ log.info("Starting workspace")
 
 ENV_RESOURCES_PATH = os.getenv("RESOURCES_PATH", "/resources")
 ENV_WORKSPACE_HOME = os.getenv('WORKSPACE_HOME', "/workspace")
-ENV_USERNAME = os.getenv('USERNAME', 'root')
+ENV_USERNAME = os.getenv('WORKSPACE_USERNAME', 'root')
 
 
 log.info("Setting up bakery")
@@ -41,3 +41,4 @@ call('/bin/bash', shell=True)
 #    sys.exit(call("cd " + ENV_WORKSPACE_HOME + " && python3 " + ENV_RESOURCES_PATH + "/scripts/execute_code.py" + script_arguments, shell=True))
 #
 #sys.exit(call("python3 " + ENV_RESOURCES_PATH + "/scripts/init_workspace.py" + script_arguments, shell=True))
+

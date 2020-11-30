@@ -8,4 +8,4 @@ for filename in $RESOURCES_PATH/keys/*.pub; do
     cat "$filename" >>  $WORKSPACE_HOME/.ssh/authorized_keys
 done
 
-chown -R $USERNAME:$USERNAME $WORKSPACE_HOME/.ssh
+chown -R $WORKSPACE_USERNAME:$WORKSPACE_USERNAME $WORKSPACE_HOME/.ssh

@@ -43,10 +43,9 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 cd $GIT_FOLDER/ && git clone https://github.com/clvv/fasd
 cd fasd && PREFIX=$HOME/.local make install
 
-cd $GIT_FOLDER/dotfiles/.configs/ml && ./jupyterlab_extensions_setup
-cd ~ && screen -d -m jupyter-lab --port 9088 --no-browser --NotebookApp.token='' --NotebookApp.password=''
 pip3 install -r /tmp/requirements.txt
-
+PATH=~/.local/bin:$PATH && cd $GIT_FOLDER/dotfiles/.configs/ml && ./jupyterlab_extensions_setup && \
+cd ~ && screen -d -m jupyter-lab --port 9088 --no-browser --NotebookApp.token='' --NotebookApp.password=''
 
 rm ~/.bashrc ~/.zshrc ~/.fzf.zsh ~/.fzf.bash
 

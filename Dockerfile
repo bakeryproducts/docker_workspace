@@ -17,16 +17,16 @@ RUN apt-get update && \
 
 RUN pip3 install --upgrade pip
         
-ARG USERNAME
+ARG WORKSPACE_USERNAME
 ARG RESOURCES_PATH 
 
 ENV RESOURCES_PATH $RESOURCES_PATH  
-ENV WORKSPACE_HOME "/home/$USERNAME"
-ENV USERNAME $USERNAME
+ENV WORKSPACE_HOME "/home/$WORKSPACE_USERNAME"
+ENV WORKSPACE_USERNAME $WORKSPACE_USERNAME
 
-RUN useradd -rm -s /bin/bash -G sudo -u 1000 $USERNAME 
-RUN  echo "$USERNAME:$USERNAME" | chpasswd
-RUN PATH=$RESOURCES_PATH/scripts:$PATH
+RUN useradd -rm -s /bin/bash -G sudo -u 1000 $WORKSPACE_USERNAME 
+RUN echo "$WORKSPACE_USERNAME:$WORKSPACE_USERNAME" | chpasswd
+RUN echo  "PATH=$RESOURCES_PATH/scripts:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" > /etc/environment
 
 ENTRYPOINT python3 $RESOURCES_PATH/entrypoint.py $0 $@
 

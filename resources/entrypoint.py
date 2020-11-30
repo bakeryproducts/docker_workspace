@@ -22,7 +22,7 @@ log.info("Init base")
 
 ENV_RESOURCES_PATH = os.getenv("RESOURCES_PATH", "/resources")
 ENV_WORKSPACE_HOME = os.getenv('WORKSPACE_HOME', "/workspace")
-ENV_USERNAME = os.getenv('USERNAME', 'root')
+ENV_USERNAME = os.getenv('WORKSPACE_USERNAME', 'root')
 
 log.info("Setting permissions")
 call(f'env | grep _ >> /etc/environment', shell=True)

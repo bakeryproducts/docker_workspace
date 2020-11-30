@@ -3,9 +3,9 @@
 #docker network create --subnet=172.29.0.0/16 sokolov_ws_net
 set -e 
 
-USERNAME="gsm"
+WORKSPACE_USERNAME="gsm"
 RESOURCES_PATH="/resources"
-WORKSPACE_HOME="/home/$USERNAME"
+WORKSPACE_HOME="/home/$WORKSPACE_USERNAME"
 WORKSPACE_HOST_PATH="$PWD/workspace/"
 DATASETS_HOST_PATH="/data/datasets/"
 DOCKER_SOCK_PATH=$XDG_RUNTIME_DIR/docker.sock
@@ -21,9 +21,9 @@ done
 
 docker build -f ./Dockerfile \
              -t sokolov/wsbase:v02 \
-            --build-arg USERNAME=$USERNAME \
+            --build-arg WORKSPACE_USERNAME=$WORKSPACE_USERNAME \
             --build-arg RESOURCES_PATH=$RESOURCES_PATH \
-            . 
+	    .
             #--no-cache . &&
 
 docker build -f ./Dockerfile.ws \
@@ -39,7 +39,7 @@ docker run  \
             -h sws \
             -p 9000:22 \
             -p 9001-9100:9001-9100 \
-            -v $WORKSPACE_HOST_PATH/$USERNAME:$WORKSPACE_HOME \
+            -v $WORKSPACE_HOST_PATH/$WORKSPACE_USERNAME:$WORKSPACE_HOME \
             -v $PWD/resources:$RESOURCES_PATH \
             -v $DATASETS_HOST_PATH:/datasets\
     	    -v $DOCKER_SOCK_PATH:/var/run/docker.sock \
