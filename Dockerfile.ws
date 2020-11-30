@@ -1,4 +1,4 @@
-FROM sokolov/wsbase:v01
+FROM sokolov/wsbase:v02
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y locales
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \

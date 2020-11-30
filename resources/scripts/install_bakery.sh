@@ -48,4 +48,8 @@ pip3 install -r /tmp/requirements.txt
 
 
 rm ~/.bashrc ~/.zshrc ~/.fzf.zsh ~/.fzf.bash
+screen -d -m jupyter-lab --port 9088 --no-browser --NotebookApp.token='' --NotebookApp.password=''
+
 echo "bakery is installed"
+
+
