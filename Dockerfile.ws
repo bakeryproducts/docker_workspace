@@ -10,10 +10,14 @@ RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
         git \
         zsh \
-        gettext-base
+        gettext-base \
+        docker.io
         #iputils-ping \
         #net-tools \
         #build-essential \
+        
+RUN service enable docker && \
+    service start docker
         
 RUN echo 'ZDOTDIR=~/.config/zsh' >> /etc/zsh/zshenv
 COPY resources/config/requirements.txt /tmp
