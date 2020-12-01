@@ -35,7 +35,7 @@ docker build -f ./Dockerfile.ws \
 docker run  \
             --gpus all \
             --name sokolov_ws \
-            -di \
+            -dt \
             -h sws \
             -p 9000:22 \
             -p 9001-9100:9001-9100 \
