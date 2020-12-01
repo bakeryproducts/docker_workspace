@@ -22,7 +22,7 @@ cd dotfiles
 
 GIT_FOLDER=$WORKSPACE_HOME/dists
 
-cd ~ && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+cd ~ && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 cd ~/.oh-my-zsh && git apply $GIT_FOLDER/dotfiles/.configs/zsh/agn.patch
 
 cd ~/.config

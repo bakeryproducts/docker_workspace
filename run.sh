@@ -19,6 +19,7 @@ for filename in $HOME/.ssh/*.pub; do
     cp "$filename" $PWD/resources/keys
 done
 
+
 docker build -f ./Dockerfile \
              -t sokolov/wsbase:v02 \
             --build-arg WORKSPACE_USERNAME=$WORKSPACE_USERNAME \
@@ -35,6 +36,7 @@ docker build -f ./Dockerfile.ws \
 docker run  \
             --gpus all \
             --name sokolov_ws \
+	    --shm-size=64g \
             -dt \
             -h sws \
             -p 9000:22 \
