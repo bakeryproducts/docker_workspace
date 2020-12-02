@@ -33,7 +33,6 @@ call(f'echo "PATH=\"{env_path}\"" > /etc/environment', shell=True)
 call(f'echo "RESOURCES_PATH=\"{ENV_RESOURCES_PATH}\"" >> /etc/environment', shell=True)
 call(f'echo "WORKSPACE_HOME=\"{ENV_WORKSPACE_HOME}\"" >> /etc/environment', shell=True)
 call(f'echo "WORKSPACE_USERNAME=\"{ENV_USERNAME}\"" >> /etc/environment', shell=True)
-#call(f'env | grep _ >> /etc/environment', shell=True)
 
 log.info("Setting permissions")
 call(f'usermod -d /home/{ENV_USERNAME} {ENV_USERNAME}', shell=True)
@@ -43,9 +42,9 @@ call(f'mkdir {ENV_WORKSPACE_HOME}/.config', shell=True)
 
 call(f'chown -R {ENV_USERNAME}:{ENV_USERNAME} {ENV_WORKSPACE_HOME}', shell=True)
 
-if call_quiet("service ssh status") != 0:
-    log.info("Configure ssh service")
-    call('service ssh start', shell=True)
-    call("/bin/bash " + str(f"{ENV_RESOURCES_PATH}/scripts/configure_ssh.sh"), shell=True)
+#if call_quiet("service ssh status") != 0: # <- this is somehow not working 
+log.info("Configure ssh service")
+call('service ssh start', shell=True)
+call("/bin/bash " + str(f"{ENV_RESOURCES_PATH}/scripts/configure_ssh.sh"), shell=True)
 
 if len(sys.argv) > 1:  call(' '.join(sys.argv[1:]), shell=True)
