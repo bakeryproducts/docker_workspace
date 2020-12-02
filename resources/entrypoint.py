@@ -28,12 +28,12 @@ ENV_USERNAME = os.getenv('WORKSPACE_USERNAME', 'root')
 
 log.info("Dropping env")
 env_path = f"{ENV_RESOURCES_PATH}/scripts:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-call(f'echo "PATH=\"{env_path}\"" > /etc/environment')
+call(f'echo "PATH=\"{env_path}\"" > /etc/environment', shell=True)
 
-call(f'echo "RESOURCES_PATH=\"{ENV_RESOURCES_PATH}\"" >> /etc/environment')
-call(f'echo "WORKSPACE_HOME=\"{ENV_WORKSPACE_HOME}\"" >> /etc/environment')
-call(f'echo "WORKSPACE_USERNAME=\"{ENV_USERNAME}\"" >> /etc/environment')
-call(f'env | grep _ >> /etc/environment', shell=True)
+call(f'echo "RESOURCES_PATH=\"{ENV_RESOURCES_PATH}\"" >> /etc/environment', shell=True)
+call(f'echo "WORKSPACE_HOME=\"{ENV_WORKSPACE_HOME}\"" >> /etc/environment', shell=True)
+call(f'echo "WORKSPACE_USERNAME=\"{ENV_USERNAME}\"" >> /etc/environment', shell=True)
+#call(f'env | grep _ >> /etc/environment', shell=True)
 
 log.info("Setting permissions")
 call(f'usermod -d /home/{ENV_USERNAME} {ENV_USERNAME}', shell=True)
