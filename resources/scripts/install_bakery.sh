@@ -22,6 +22,8 @@ cd dotfiles
 
 GIT_FOLDER=$WORKSPACE_HOME/dists
 
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb && sudo dpkg -i ripgrep_12.1.1_amd64.deb
+
 cd ~ && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 cd ~/.oh-my-zsh && git apply $GIT_FOLDER/dotfiles/.configs/zsh/agn.patch
 
