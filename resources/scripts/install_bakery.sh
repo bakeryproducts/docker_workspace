@@ -18,7 +18,7 @@ pip3 install -e .
 
 cd $WORKSPACE_HOME/dists  
 git clone https://github.com/bakeryproducts/dotfiles
-cd dotfiles 
+cd dotfiles/.local/ && ./link-bins
 
 GIT_FOLDER=$WORKSPACE_HOME/dists
 
@@ -47,7 +47,7 @@ cd fasd && PREFIX=$HOME/.local make install
 
 pip3 install -r /tmp/requirements.txt
 PATH=~/.local/bin:$PATH && cd $GIT_FOLDER/dotfiles/.configs/ml && ./jupyterlab_extensions_setup && \
-cd ~ && screen -d -m jupyter-lab --port 9088 --no-browser --NotebookApp.token='' --NotebookApp.password=''
+cd $GIT_FOLDER/dotfiles/.local/bin/ && ./jl
 
 rm ~/.bashrc ~/.zshrc ~/.fzf.zsh ~/.fzf.bash
 
