@@ -35,8 +35,8 @@ docker build -f ./Dockerfile.ws \
 
 docker run  \
             --gpus all \
-            --name sokolov_ws \
-	    --shm-size=64g \
+            --name sokolov_ws_1 \
+	    --shm-size=200g \
             -dt \
             -h sws \
             -p 9000:22 \
