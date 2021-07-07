@@ -3,13 +3,13 @@ import os
 import sys
 from pathlib import Path
 
-def complete_path(path):
-    host_prefix = os.getenv('WORKSPACE_HOST_PATH', '')
-    ws_mnt = Path(os.getenv('WORKSPACE_HOME', '/workspace'))
-    fake_part_of_path = ws_mnt.parents[0]
-    host_relative_path = path.relative_to(fake_part_of_path)
-    print(host_relative_path)
-    return str (host_prefix / host_relative_path)  
+# load module withoout extension, from full path
+from importlib.util import spec_from_loader, module_from_spec
+from importlib.machinery import SourceFileLoader 
+spec = spec_from_loader("depath", SourceFileLoader("depath", "/resources/scripts/depath"))
+depath = module_from_spec(spec)
+spec.loader.exec_module(depath)
+#
 
 def is_valid_folder(path): 
     ws_mnt = Path(os.getenv('WORKSPACE_HOME', '/workspace'))
@@ -26,7 +26,7 @@ if __name__ == '__main__':
            path_workspace, path_docker = args[i+1].split(':')
            path_workspace = Path(path_workspace)
            if is_valid_folder(path_workspace):
-               path_host = complete_path(path_workspace)
+               path_host = depath.complete_path(path_workspace)
                args[i+1] = ':'.join([path_host, path_docker])
            else:
                 print(f'{path_workspace} is not a valid path!')
